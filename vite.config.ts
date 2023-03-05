@@ -7,6 +7,7 @@ import topLevelAwait from 'vite-plugin-top-level-await';
 import wasm from 'vite-plugin-wasm';
 
 import { getFileList } from './tools/get_file_list';
+import { truncateSync } from 'node:fs';
 
 const publicDir = path.resolve(__dirname, './public');
 const getPublicFileList = async (targetPath: string) => {
@@ -24,12 +25,15 @@ export default defineConfig(async () => {
   return {
     build: {
       assetsInlineLimit: 20480,
-      cssCodeSplit: false,
+      cssCodeSplit: true,
       cssTarget: 'es6',
-      minify: false,
+      minify: true,
       rollupOptions: {
         output: {
+          codeSplitting: true,
           experimentalMinChunkSize: 40960,
+          inlineDynamicImports: true,
+          treeshake: true,
         },
       },
       target: 'es2015',
