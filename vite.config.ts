@@ -30,12 +30,11 @@ export default defineConfig(async () => {
       minify: true,
       rollupOptions: {
         output: {
-          codeSplitting: true,
           experimentalMinChunkSize: 40960,
           inlineDynamicImports: true,
-          treeshake: true,
         },
       },
+      sourcemap: false,
       target: 'es2015',
     },
     plugins: [
