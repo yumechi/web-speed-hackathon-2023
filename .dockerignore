@@ -1,3 +1,4 @@
 dist
 node_modules
 databases/database.sqlite
+converter
