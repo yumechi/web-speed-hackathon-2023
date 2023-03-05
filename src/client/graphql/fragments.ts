@@ -68,6 +68,23 @@ export type ProductFragmentResponse = Pick<Product, 'id' | 'name' | 'price' | 'd
   offers: LimitedTimeOfferFragmentResponse[];
 };
 
+export const RecommendationProductFragment = gql`
+  ${ProductMediaFragment}
+
+  fragment RecommendationProductFragment on Product {
+    id
+    name
+    price
+    media {
+      ...ProductMediaFragment
+    }
+  }
+`;
+export type RecommendationProductFragmentResponse = Pick<Product, 'id' | 'name'> & {
+  media: ProductMediaFragmentResponse[];
+};
+
+
 export const ProfileFragment = gql`
   ${MediaFileFragment}
 
@@ -143,17 +160,17 @@ export type ProductWithReviewFragmentResponse = ProductFragmentResponse & {
 };
 
 export const RecommendationFragment = gql`
-  ${ProductFragment}
+  ${RecommendationProductFragment}
 
   fragment RecommendationFragment on Recommendation {
     id
     product {
-      ...ProductFragment
+      ...RecommendationProductFragment
     }
   }
 `;
 export type RecommendationFragmentResponse = Pick<Recommendation, 'id'> & {
-  product: ProductFragmentResponse;
+  product: RecommendationProductFragmentResponse;
 };
 
 export const ShoppingCartItemFragment = gql`
